@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from '../contactsSlice'; // Переконайтеся, що шлях правильний
+import { setFilter } from '../redux/contactsSlice'; 
 import css from './SearchBar.module.css';
 
+import { getFilter } from '../redux/selectors';
+
 const SearchBar = () => {
-  const filter = useSelector(state => state.contacts.filter);
+  const filter = useSelector(state => getFilter(state));
   const dispatch = useDispatch();
 
   const handleFilterChange = value => {

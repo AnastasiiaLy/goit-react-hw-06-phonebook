@@ -1,4 +1,3 @@
-// src/features/contacts/contactsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialContacts = [

@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addContact } from '../contactsSlice'; // Шлях до вашого slice
+import { useSelector } from 'react-redux';
+import { addContact } from '../redux/contactsSlice';
+
+import { getContacts } from '../redux/selectors';
 
 import css from './ContactForm.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
 const ContactForm = () => {
   const dispatch = useDispatch();
+
+  const contacts = useSelector(state => getContacts(state));
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -33,6 +38,15 @@ const ContactForm = () => {
       name,
       number,
     };
+
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+      )
+    ) {
+      alert(`${newContact.name} is already in contacts.`);
+      return;
+    }
 
     dispatch(addContact(newContact));
 
